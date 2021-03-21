@@ -1,3 +1,4 @@
 #!/bin/sh
 
+# simple script to convert webm to mp3
 for i in *.webm ; do ffmpeg -i "$i" -acodec libmp3lame -q:a 2 "${i%.*}.mp3" && rm "$i" ; done
