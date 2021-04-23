@@ -1,4 +1,5 @@
 #!/bin/sh
+
 options="Shut down\nRestart\nLog out\nHibernate"
 
 case $(echo -e $options | dmenu -i -p "[ System ]") in
