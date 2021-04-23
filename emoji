@@ -1,0 +1,4 @@
+#!/bin/sh
+
+chosen=$(cat $HOME/Templates/emojis | dmenu -i -l 20 -p 'select emoji to copy:' | awk '{print $NF}')
+[ -n "$chosen" ] && printf "$chosen" | xclip -selection clipboard && notify-send "'$chosen' copied to clipboard" 
