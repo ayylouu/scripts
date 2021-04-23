@@ -1,0 +1,6 @@
+#!/bin/sh
+
+[ -z "$1" ] && exit 
+rm -rf /tmp/manga
+curl -sL $1 --create-dirs -o /tmp/manga/all
+sed -n '/<img src="\//p ' /tmp/manga/all | sed 's/\sclass.*// ; s/"/ / ; s/.*\s/readm.org/ ; s/"//' | xargs wget -q -P /tmp/manga --show-progress && sxiv /tmp/manga/*
