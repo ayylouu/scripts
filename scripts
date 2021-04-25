@@ -1,5 +1,5 @@
 #!/bin/sh
 
-chosen=$( du -a $HOME/.scripts/ | sed 's/.*\s//' | dmenu -i -l 20 -p 'Edit script:')
+chosen=$( du -a $HOME/.scripts/ | sed 's/.*\s//; /\.git/d; /\/$/d' | dmenu -i -l 20 -p 'Edit script:')
 [ -z "$chosen" ] && exit
 alacritty -e vim $chosen & notify-send "Editing '$chosen'"
