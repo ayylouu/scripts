@@ -1,8 +1,6 @@
 #!/bin/sh
 
-options="Shut down\nRestart\nLog out\nHibernate"
-
-case $(echo -e $options | dmenu -i -p "[ System ]") in
+case $(printf "Shut down\nRestart\nLog out\nHibernate" | dmenu -i -p "[ System ]") in
   "Shut down") exec shutdown -h now;;
   "Restart") exec reboot;;
   "Hibernate") exec systemctl hibernate;;
