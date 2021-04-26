@@ -3,13 +3,17 @@
 case "$1" in 
     prev) 
         mpc prev 
-        notify-send "Playing: $(mpc -f '%artist% (%album%)-%title%' | sed 1q )
+        notify-send -i $HOME/Templates/icons/musical.png "Playing: $(mpc -f '%artist% (%album%)-%title%' | sed 1q )
 $(mpc -f '%file%' | sed 1q)"
         ;;
     next) mpc next
-        notify-send "Playing: $(mpc -f '%artist% (%album%)-%title%' | sed 1q )
+        notify-send -i $HOME/Templates/icons/musical.png "Playing: $(mpc -f '%artist% (%album%)-%title%' | sed 1q )
 $(mpc -f '%file%' | sed 1q)"
         ;;
-    toggle) mpc toggle && mpc | sed -n '/\[/p' | sed 's/\[//; s/\].*//' | xargs -I @@ notify-send "mpc @@" ;;
+    toggle) mpc toggle && mpc | sed -n '/\[/p' | sed 's/\[//; s/\].*//' | xargs -I @@ notify-send -i $HOME/Templates/icons/musical.png "mpc @@" ;;
+    info) 
+        notify-send -i $HOME/Templates/icons/musical.png "Playing: $(mpc -f '%artist% (%album%)-%title%' | sed 1q )
+$(mpc -f '%file%' | sed 1q)"
+        ;;
     *) exit ;;
 esac
