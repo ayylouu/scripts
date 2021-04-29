@@ -1,8 +1,7 @@
 #!/bin/sh
 
 np() { 
-	mpc -f '%artist% (%album%) - %title%' | sed '/^volume/d; /^\[/d' | xargs -I @@ notify-send -i ~/Templates/icons/musical.png "Playing:@@
-$(mpc -f '%file%' | sed '/^volume/d; /^\[/d' )"
+	mpc -f '%artist% (%album%) - %title%' | sed '/^volume/d; /^\[/d'  | xargs -I @@ notify-send -i ~/Templates/icons/musical.png "Playing:@@" "$(mpc -f '%file%' | sed '/^volume/d; /^\[/d' )" 
 }
 case "$1" in
 	prev) mpc prev & np;;
