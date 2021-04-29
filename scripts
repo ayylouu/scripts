@@ -2,4 +2,4 @@
 
 chosen=$( du -a $HOME/.scripts/ | sed 's/.*\s//; /\.git/d; /\/$/d' | dmenu -i -l 20 -p 'Edit script:')
 [ -z "$chosen" ] && exit
-alacritty -e vim $chosen & notify-send "Editing '$chosen'"
+$TERMINAL -e $EDITOR $chosen & notify-send "Editing '$chosen'"

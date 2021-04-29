@@ -2,4 +2,4 @@
 
 chosen=$( du -a -d1 $HOME/.config/sxhkd/ $HOME/.config/awesome/ $HOME/.config/alacritty/ | sed 's/.*\s//; /themes/d; /freed/d; /json.lua/d' | dmenu -l 20 -p 'Edit config:')
 [ -z "$chosen" ] && exit
-alacritty -e vim $chosen & notify-send "Editing '$chosen'"
+$TERMINAL -e $EDITOR $chosen & notify-send "Editing '$chosen'"
