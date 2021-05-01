@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# status bar script for arch packages update
+pacman -Qu | wc -l | xargs -I @@ echo "@@ 📦"
