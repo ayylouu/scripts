@@ -1,5 +1,7 @@
 #!/bin/sh
 
-chosen=$( du -a $HOME/Pictures/wallpapers/ | sed 's/.*\s//; /\/$d/d' | dmenu -i -l 20 -p 'Change wallpaper:' )
-[ -z "$chosen" ] && exit
-feh --no-fehbg --bg-scale "$chosen" & notify-send -i "$chosen" "Wallpaper changed to '$chosen'"
+dir=$(du ~/Pictures/wallpapers | awk '{print $NF}' | dmenu -l 20 -p "choose wallpaper dir")
+[ -z $dir ] && exit
+chosen=$( sxiv -qrto $dir)
+[ -z $chosen ] && exit
+feh --bg-scale "$chosen" & notify-send -i "$chosen" "Wallpaper changed to '$chosen'"
