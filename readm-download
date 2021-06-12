@@ -2,17 +2,21 @@
 # script to temporarily download a manga chapter from readm.org then opening it with sxiv
 
 download(){
+	
+	link="https://readm.org/manga/$manga/$chapter/all-pages"
+
 	rm -rf /tmp/manga ;
 	curl -sL $link --create-dirs -o /tmp/manga/all ;
-	sed -n '/<img src="\//p ' /tmp/manga/all | sed 's/\sclass.*// ; s/"/ / ; s/.*\s/readm.org/ ; s/"//' | xargs wget -q -P /tmp/manga --show-progress &&  sxiv -q /tmp/manga/* 
+	sed -n '/<img src="\//p ' /tmp/manga/all | sed 's/\sclass.*// ; s/"/ / ; s/.*\s/readm.org/ ; s/"//' | xargs wget -q -P /tmp/manga --show-progress &&  sxiv -qr /tmp/manga/*
+
+ 	read -p "Next chapter [Y/n]:" next
+	case $next in
+		"n" | "N") exit ;; 
+		*) (( chapter = chapter + 1 )) && download ;;
+	esac 
 }
 
-[ -n "$1" ] && link=$1 && download && exit
-
-#creating the link if not provided
-printf "Manga number:" && read manga                        # example: 822 is berserk's (readm.org/manga/822)
-printf "Chapter number:" && read chapter
+read -p "Manga number:" manga
+read -p "Chapter number:" chapter
 [ -z "$manga" ] || [ -z "$chapter" ] && exit
-link="https://readm.org/manga/$manga/$chapter/all-pages"
-
 download
