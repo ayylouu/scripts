@@ -1,0 +1,16 @@
+#! /bin/sh
+
+[ -z $1 ] && link="$(printf "" | dmenu -p 'Paste URL:')" || link="$1"
+[ -z $link ] && exit
+case "$(printf "brave\nmpv\nmpv-loop\nsxiv\nzathura\nbookmark" | dmenu -i -p 'Open with:')" in
+    mpv) setsid -f mpv -quiet "$link" >/dev/null 2>&1 ;;
+    "mpv-loop") setsid -f mpv -quiet --loop "$link" >/dev/null 2>&1 ;;
+    zathura) curl -sL "$link" > "/tmp/$(echo "$link" | sed "s/.*\///;s/%20/ /g")" && zathura "/tmp/$(echo "$link" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
+    sxiv) curl -sL "$link" > "/tmp/$(echo "$link" | sed "s/.*\///;s/%20/ /g")" && sxiv -a "/tmp/$(echo "$link" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 ;;
+    brave) setsid -f brave "$link" >/dev/null 2>&1 ;;
+    bookmark) 
+        name="$(printf "" | dmenu -p 'Name bookmark:')"
+        printf "$name - $link\n" >> $HOME/Templates/bookmarks
+        ;;
+    *) exit;;
+esac
