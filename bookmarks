@@ -1,0 +1,5 @@
+#! /bin/sh
+
+link="$(cat $HOME/Templates/bookmarks | dmenu -i -l 20 -p 'Open bookmark:' | awk '{print $NF}')"
+[ -z $link ] && exit
+handler $link
