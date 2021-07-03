@@ -1,0 +1,13 @@
+#!/bin/sh
+
+dir=$(du $HOME/Videos/ | sed '/sub/d; s/^.*\s//; /\/$/d; /movies$/d; /anime$/d; /shows$/d' | dmenu -i -l 20 -p 'select directory:')
+[ -z "$dir" ] && exit
+file=$(ls $dir | sed '/sub/d;' | dmenu -i -l 20 -p 'episode:')
+[ -z "$file" ] && exit
+case $(printf "yes\nno" | dmenu -i -p 'subtitles?') in
+	yes) 
+		sub=$(ls $dir/sub | dmenu -i -l 20 -p 'subtitle:')
+		mpv "$dir/$file" --sub-file="$dir/sub/$sub"
+		;;
+	*) mpv "$dir/$file" ;;
+esac
