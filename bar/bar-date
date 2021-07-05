@@ -17,4 +17,9 @@ case "$clock" in
 	"11") icon="🕚" ;;
 	"12") icon="🕛" ;;
 esac
-date "+%I:%M%p [%d/%m]"
+echo "$icon$(date '+%I:%M%p [%d/%m]')"
+case $BUTTON in
+	1) notify-send "$(cal -3)";;
+	2) st -e cal -3;;
+	*) exit;;
+esac

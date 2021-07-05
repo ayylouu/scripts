@@ -10,3 +10,7 @@ else
 fi
 
 echo "$icon$vol%"
+
+case $BUTTON in
+	2) $TERMINAL -e pulsemixer ;;
+esac
