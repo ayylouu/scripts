@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DOWN=$(transmission-remote -l | grep % | grep -ci down)
+UP=$(transmission-remote -l | grep % | grep -ci up)
+STOP=$(transmission-remote -l | grep % | grep -ci stop)
+echo "$UP🔼 $DOWN🔽 $STOP⏸"
+
+case $BUTTON in
+    2) st -e stig;;
+    3) pkill -RTMIN+11 dwmblocks;;
+    *) exit;;
+esac
