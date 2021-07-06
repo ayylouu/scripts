@@ -3,9 +3,12 @@
 DOWN=$(transmission-remote -l | grep % | grep -ci down)
 UP=$(transmission-remote -l | grep % | grep -ci up)
 STOP=$(transmission-remote -l | grep % | grep -ci stop)
-echo "$UP🔼 $DOWN🔽 $STOP⏸"
+SEEDING=$(transmission-remote -l | grep % | grep -ci seeding)
+DONE=$(transmission-remote -l | grep -c 100%)
+echo "$SEEDING🔺 $DONE✅ $UP🔼 $DOWN🔽 $STOP⏸"
 
 case $BUTTON in
+    1) addtorent;;
     2) st -e stig;;
     3) pkill -RTMIN+11 dwmblocks;;
     *) exit;;
