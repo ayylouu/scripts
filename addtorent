@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case $(printf "magnet\nfile" | dmenu -i -p 'add torrent by:') in
+	magnet) printf "" | dmenu -i -p 'magnet:' | xargs -I @@ transmission-remote -a @@;;
+	file)
+		add="$(ls $HOME/Downloads/torrents | dmenu -i -l 20 -p 'choose file or paste magnet link:' )"
+		[ -z "$add" ] && exit
+		transmission-remote -a "$HOME/Downloads/torrents/$add" && notify-send "torrent added"
+		;;
+	*) exit;;
+esac
