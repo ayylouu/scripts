@@ -1,12 +1,17 @@
 #!/bin/sh
 
-np() { 
-	mpc -f '%artist% - %title% \[%time%\]' | sed '/^volume/d; /^\[/d'  | xargs -I @@ notify-send -i ~/Templates/icons/musical.png "Playing:@@" "$(mpc -f '%file%' | sed '/^volume/d; /^\[/d' )" 
+now_playing() {
+	artist="$(mpc current -f %artist%)"
+	title="$(mpc current -f %title%)"
+	[ -z "$artist" ] && [ -z "$title" ] && notify-send -i no_icon "$(mpc current -f %file%)" && exit
+	[ -z "$artist" ] && artist="unknown artist"
+	[ -z "$title" ] && title="unknown title"
+	notify-send -i no_icon "$artist" "$title"
 }
 case "$1" in
-	prev) mpc prev & np;;
-	next) mpc next & np;;
-	info) np;;
-	toggle) mpc toggle && notify-send -i ~/Templates/icons/musical.png "mpd $(mpc | sed '/^v/d; s/^\[//; s/\].*//; /\s/d')" ;;
+	prev) mpc prev & now_playing;;
+	next) mpc next & now_playing;;
+	info) now_playing;;
+	toggle) mpc toggle && notify-send -i no_icon "mpd $(mpc | sed '/^v/d; s/^\[//; s/\].*//; /\s/d')" ;;
 	*) exit ;;
 esac
