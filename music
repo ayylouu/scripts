@@ -8,6 +8,7 @@ now_playing() {
 	[ -z "$title" ] && title="unknown title"
 	notify-send -i no_icon "$artist" "$title"
 }
+
 case "$1" in
 	prev) mpc prev & now_playing;;
 	next) mpc next & now_playing;;
