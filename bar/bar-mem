@@ -2,6 +2,6 @@
 
 free --mebi | sed -n '2{p;q}' | awk '{printf ("🧠%dMb\n", $3)}'
 case $BUTTON in
-	2) st -e htop;;
+	2) $TERMINAL -e htop;;
 	*) exit;;
 esac
