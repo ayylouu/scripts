@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # status bar script for arch packages update
-pacman -Qu | wc -l | xargs -I @@ echo "📦@@"
+checkupdates | wc -l | xargs -I @@ printf "📦@@"
 case $BUTTON in
-	2) st -e sudo pacman -Syu;;
+	2) $TERMINAL -e sudo pacman -Syu;;
 	*) exit;;
 esac
