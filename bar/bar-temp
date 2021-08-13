@@ -1,3 +1,8 @@
 #!/bin/sh
 
 sensors | awk '/Core 0/ {print "🌡" $3}'
+
+case $BUTTON in
+	2) $TERMINAL -e sensors;;
+	*) exit;;
+esac
